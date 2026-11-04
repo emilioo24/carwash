@@ -1,0 +1,44 @@
+{
+	"name": "carswash-web",
+	"version": "0.1.0",
+	"private": true,
+	"type": "module",
+	"packageManager": "pnpm@12.10.1",
+	"imports": {
+		"#lib": "./src/lib",
+		"#lib/*": "./src/lib/*"
+	},
+	"scripts": {
+		"dev": "vite dev",
+		"build": "vite build",
+		"build:demo": "vite build --mode github-pages",
+		"preview": "vite preview",
+		"prepare": "svelte-kit sync || echo ''",
+		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
+		"gallery:sync": "node scripts/gallery-sync.ts",
+		"assets:prepare": "node scripts/prepare-assets.ts",
+		"demo:dirt": "node scripts/generate-demo-dirt.ts",
+		"test": "vitest run"
+	},
+	"dependencies": {
+		"gsap": "^3.15.0",
+		"lenis": "^1.3.27",
+		"zod": "^4.6.7"
+	},
+	"devDependencies": {
+		"@sveltejs/adapter-cloudflare": "^8.0.2",
+		"@sveltejs/adapter-static": "^4.0.1",
+		"@sveltejs/kit": "^3.1.1",
+		"@sveltejs/vite-plugin-svelte": "^7.3.1",
+		"@tailwindcss/vite": "^4.3.4",
+		"@types/node": "^24.19.2",
+		"sharp": "^0.35.5",
+		"svelte": "^5.57.3",
+		"svelte-check": "^4.7.8",
+		"tailwindcss": "^4.3.4",
+		"typescript": "^6.0.3",
+		"vite": "^8.3.5",
+		"vitest": "^5.1.0",
+		"wrangler": "^4.156.2"
+	}
+}

@@ -1,0 +1,198 @@
+@import 'tailwindcss';
+
+@theme {
+	--color-ink: #111518;
+	--color-panel: #1a2025;
+	--color-orange: #f2911b;
+	--color-water: #2b8fb3;
+	--color-red: #d7261e;
+	--color-paper: #f4f6f8;
+	--color-mist: #9aa6b0;
+
+	--font-display: 'Anton', 'Arial Narrow', Impact, sans-serif;
+	--font-comic: 'Bangers', 'Anton', Impact, sans-serif;
+	--font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+}
+
+:root {
+	color-scheme: dark;
+	--line: rgb(244 246 248 / 0.12);
+	--bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+	--nav-height: 72px;
+}
+
+html {
+	background: var(--color-ink);
+	scroll-behavior: smooth;
+	scroll-padding-top: 16px; /* cada sección ya deja aire para la navbar */
+	-webkit-text-size-adjust: 100%;
+}
+
+html.lenis {
+	scroll-behavior: auto;
+}
+
+body {
+	background: var(--color-ink);
+	color: var(--color-paper);
+	font-family: var(--font-sans);
+	line-height: 1.6;
+	overflow-x: clip;
+	-webkit-font-smoothing: antialiased;
+}
+
+:focus-visible {
+	outline: 3px solid var(--color-orange);
+	outline-offset: 3px;
+	border-radius: 4px;
+}
+
+.skip-link {
+	position: fixed;
+	left: 16px;
+	top: -80px;
+	z-index: 100;
+	border-radius: 10px;
+	background: var(--color-orange);
+	color: var(--color-ink);
+	font-weight: 700;
+	padding: 10px 16px;
+}
+
+.skip-link:focus {
+	top: 12px;
+}
+
+.shell {
+	width: 100%;
+	max-width: 1320px;
+	margin-inline: auto;
+	padding-inline: clamp(16px, 4vw, 48px);
+}
+
+.section {
+	padding-block: clamp(72px, 11vw, 150px);
+}
+
+.heading {
+	font-family: var(--font-display);
+	font-size: clamp(2.75rem, 8.5vw, 6.75rem);
+	font-weight: 400;
+	line-height: 1.1;
+	text-transform: uppercase;
+	letter-spacing: 0.005em;
+	text-wrap: balance;
+}
+
+.lead {
+	max-width: 58ch;
+	color: var(--color-mist);
+	font-size: clamp(1rem, 1.5vw, 1.2rem);
+}
+
+/* Botones: el brillo los recorre y rebotan apenas. */
+.btn {
+	position: relative;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 10px;
+	min-height: 52px;
+	overflow: hidden;
+	isolation: isolate;
+	border: 2px solid transparent;
+	border-radius: 14px;
+	padding: 12px 24px;
+	font-weight: 700;
+	line-height: 1.15;
+	text-align: center;
+	cursor: pointer;
+	transition:
+		transform 0.32s var(--bounce),
+		background-color 0.2s,
+		border-color 0.2s,
+		color 0.2s;
+}
+
+.btn::after {
+	content: '';
+	position: absolute;
+	inset: -2px;
+	z-index: -1;
+	background: linear-gradient(105deg, transparent 35%, rgb(255 255 255 / 0.6) 50%, transparent 65%);
+	transform: translateX(-110%);
+	pointer-events: none;
+}
+
+.btn-primary {
+	background: var(--color-orange);
+	color: var(--color-ink);
+}
+
+.btn-outline {
+	border-color: rgb(244 246 248 / 0.65);
+	background: rgb(17 21 24 / 0.35);
+	color: var(--color-paper);
+}
+
+.btn-ghost {
+	border-color: var(--line);
+	background: transparent;
+	color: var(--color-paper);
+}
+
+@media (hover: hover) {
+	.btn:hover {
+		transform: translateY(-2px) scale(1.025);
+	}
+
+	.btn:hover::after {
+		transform: translateX(110%);
+		transition: transform 0.65s ease;
+	}
+
+	.btn-outline:hover,
+	.btn-ghost:hover {
+		border-color: var(--color-paper);
+	}
+}
+
+.btn:active {
+	transform: scale(0.97);
+}
+
+.btn[aria-disabled='true'],
+.btn:disabled {
+	cursor: not-allowed;
+	opacity: 0.6;
+}
+
+/* Entradas: GSAP las revela. Sin JS o con movimiento reducido se ven de una. */
+@media (prefers-reduced-motion: no-preference) {
+	.js [data-reveal]:not([data-revealed]) {
+		opacity: 0;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	html {
+		scroll-behavior: auto;
+	}
+
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.01ms !important;
+	}
+}
+
+/* Con JS se usan los controles propios; sin JS, los nativos. */
+.js .no-js-only {
+	display: none !important;
+}
+
+html:not(.js) .js-only {
+	display: none !important;
+}
